@@ -1,4 +1,4 @@
-import { get } from './api_helper';
+import { get, post } from './api_helper';
 import * as url from './url_helper';
 
 //Post
@@ -11,3 +11,5 @@ export const getPostDetails = (id) =>
 			id: id,
 		},
 	});
+
+export const addPost = (data) => post(url.ADD_POST, data);

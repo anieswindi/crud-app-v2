@@ -5,6 +5,8 @@ import {
 	GET_POST_DETAILS,
 	GET_POST_DETAILS_SUCCESS,
 	GET_POST_DETAILS_FAIL,
+	ADD_POST,
+	ADD_POST_SUCCESS,
 } from './actionTypes';
 
 const initialState = {
@@ -15,15 +17,17 @@ const initialState = {
 	error: {
 		message: '',
 	},
+	loadingPostsAdd: false,
 };
 
 const PostReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case GET_POSTS:
-			console.log('reducers !', state);
 			state = { ...state, loadingPosts: true };
 			break;
 		case GET_POSTS_SUCCESS:
+			console.log('get', state, action);
+
 			state = { ...state, posts: action.payload, loadingPosts: false };
 			break;
 		case GET_POSTS_FAIL:
@@ -53,6 +57,16 @@ const PostReducer = (state = initialState, action) => {
 				},
 				loadingPostDetails: false,
 			};
+			break;
+		case ADD_POST:
+			state = {
+				...state,
+				post: action.payload,
+				loadingPostsAdd: true,
+			};
+			break;
+		case ADD_POST_SUCCESS:
+			state = { ...state, posts: action.payload, loadingPostsAdd: false };
 			break;
 		default:
 			state = { ...state };

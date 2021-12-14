@@ -8,7 +8,7 @@ import {
 	Switch,
 } from 'react-router-dom';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import Navigation from './components/Navigation';
+import { Navigation } from './components';
 
 function App() {
 	return (
@@ -17,7 +17,7 @@ function App() {
 				<Navigation />
 				<Routes>
 					<Route path="/" exact element={<Home />}></Route>
-					<Route path="/post" exact element={<Singlepost />}></Route>
+					<Route path="/:id" exact element={<Singlepost />}></Route>
 				</Routes>
 			</Router>
 		</div>

@@ -19,8 +19,6 @@ axiosApi.interceptors.response.use(
 );
 
 export async function get(url, config) {
-	console.log('url', url, 'config !', config);
-
 	let urlLink = __URL__ + url;
 	return await axios.get(urlLink).then((response) => {
 		console.log('res !', response);
@@ -34,4 +32,14 @@ export async function getPosts(url, config) {
 			...config,
 		})
 		.then((response) => response.data);
+}
+
+export async function post(url, data) {
+	let urlLink = __URL__ + url;
+	console.log('POST url', url, 'data post!', data, ' url', urlLink);
+
+	return await axios.post(urlLink, JSON.stringify(data)).then((response) => {
+		console.log('res !', response);
+		return response.data;
+	});
 }

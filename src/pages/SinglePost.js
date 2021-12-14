@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import PostDetails from '../components/PostDetails';
+import { PostDetails } from '../components';
 import { useDispatch } from 'react-redux';
 import { getPostDetails } from '../store/posts/actions';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-
 
 function SinglePost() {
 	let params = useParams();
