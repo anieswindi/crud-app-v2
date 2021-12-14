@@ -7,6 +7,7 @@ import {
 	GET_POST_DETAILS_FAIL,
 	ADD_POST,
 	ADD_POST_SUCCESS,
+	DELETE_POST,
 } from './actionTypes';
 
 const initialState = {
@@ -26,7 +27,7 @@ const PostReducer = (state = initialState, action) => {
 			state = { ...state, loadingPosts: true };
 			break;
 		case GET_POSTS_SUCCESS:
-			console.log('get', state, action);
+			// console.log('get', state, action);
 
 			state = { ...state, posts: action.payload, loadingPosts: false };
 			break;
@@ -68,6 +69,15 @@ const PostReducer = (state = initialState, action) => {
 		case ADD_POST_SUCCESS:
 			state = { ...state, posts: action.payload, loadingPostsAdd: false };
 			break;
+
+		case DELETE_POST:
+			console.log('del 2', action.payload);
+			return {
+				...state,
+				posts: state.posts.filter((item) => item.id !== action.payload),
+				loadingPosts: false,
+			};
+
 		default:
 			state = { ...state };
 			break;

@@ -12,6 +12,25 @@ class ModalAddPost extends Component {
 		};
 	}
 
+	componentDidUpdate(prevState, prevProps) {
+		if (prevProps.data !== this.props.data) {
+			this.setState({
+				data: this.props.data,
+			});
+		}
+	}
+
+	componentDidMount() {
+		this.assignProps();
+	}
+
+	assignProps() {
+		let data = { ...(this.props.data || {}) };
+		this.setState({
+			data,
+		});
+	}
+
 	handleChange(e, key) {
 		const { value } = e.target;
 		this.setState((state) => ({
@@ -22,14 +41,30 @@ class ModalAddPost extends Component {
 		}));
 	}
 
-	handleSubmit() {
-		this.props.onAccept(this.state.dataForm);
+	handleSubmit(type) {
+		const {
+			state: { data, dataForm },
+		} = this;
+		if (type == 'update') {
+			// console.log(data)
+			Object.keys(dataForm).forEach((key) => {
+				if (!dataForm[key]) {
+					delete dataForm[key];
+				}
+			});
+			this.props.onAccept(this.state.dataForm, data.id);
+		} else {
+			// console.log(this.state.dataForm)
+			this.props.onAccept(this.state.dataForm);
+		}
 	}
 
 	render() {
 		const {
-			props: { open, onHide },
+			state: { data },
+			props: { open, onHide, type },
 		} = this;
+
 		return (
 			<Modal
 				show={open}
@@ -39,7 +74,9 @@ class ModalAddPost extends Component {
 				centered
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Add Post</Modal.Title>
+					<Modal.Title>
+						{type === 'add' ? 'Add Post' : 'Update Post'}
+					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form>
@@ -49,14 +86,17 @@ class ModalAddPost extends Component {
 								type="text"
 								placeholder="Title of post"
 								onChange={(e) => this.handleChange(e, 'title')}
+								defaultValue={data && data.title}
 							/>
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formContent">
 							<Form.Label>Content</Form.Label>
 							<Form.Control
-								type="text"
-								placeholder="Content to post"
+								as="textarea"
+								placeholder="Content of post"
+								style={{ height: '100px' }}
 								onChange={(e) => this.handleChange(e, 'body')}
+								defaultValue={data && data.body}
 							/>
 						</Form.Group>
 					</Form>
@@ -67,9 +107,9 @@ class ModalAddPost extends Component {
 					</Button>
 					<Button
 						variant="primary"
-						onClick={this.handleSubmit.bind(this)}
+						onClick={this.handleSubmit.bind(this, type)}
 					>
-						Add
+						{type === 'add' ? 'Add' : 'Update'}
 					</Button>
 				</Modal.Footer>
 			</Modal>

@@ -1,6 +1,11 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, takeEvery } from 'redux-saga/effects';
 
-import { GET_POSTS, GET_POST_DETAILS, ADD_POST } from './actionTypes';
+import {
+	GET_POSTS,
+	GET_POST_DETAILS,
+	ADD_POST,
+	DELETE_POST,
+} from './actionTypes';
 
 import {
 	getPostsSuccess,
@@ -9,12 +14,15 @@ import {
 	getPostDetailsFail,
 	addPostSuccess,
 	addPostFail,
+	deletePostSuccess,
+	deletePostFail,
 } from './actions';
 
 import {
 	getPosts,
 	getPostDetails,
 	addPost,
+	deletePost,
 } from '../../helpers/backend_helper';
 
 function* onGetPosts() {
@@ -44,10 +52,21 @@ function* onGetPostDetails({ payload: id }) {
 	}
 }
 
+function* onDeletePost() {
+	try {
+		const response = yield call(deletePost);
+		console.log('del 3', response);
+		yield put(deletePostSuccess(response));
+	} catch (error) {
+		yield put(deletePostFail(error.response));
+	}
+}
+
 function* CartSaga() {
-	yield takeLatest(GET_POSTS, onGetPosts);
-	yield takeLatest(GET_POST_DETAILS, onGetPostDetails);
+	yield takeEvery(GET_POSTS, onGetPosts);
+	yield takeEvery(GET_POST_DETAILS, onGetPostDetails);
 	yield takeLatest(ADD_POST, onAddPost);
+	yield takeEvery(DELETE_POST, onDeletePost);
 }
 
 export default CartSaga;

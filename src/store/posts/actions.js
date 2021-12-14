@@ -7,7 +7,10 @@ import {
 	GET_POST_DETAILS_FAIL,
 	ADD_POST,
 	ADD_POST_SUCCESS,
-	ADD_POST_FAIL
+	ADD_POST_FAIL,
+	DELETE_POST,
+	DELETE_POST_FAIL,
+	DELETE_POST_SUCCESS,
 } from './actionTypes';
 
 export const getPosts = () => {
@@ -68,6 +71,28 @@ export const addPostSuccess = (post) => {
 export const addPostFail = (error) => {
 	return {
 		type: ADD_POST_FAIL,
+		payload: error,
+	};
+};
+
+export const deletePost = (data) => {
+	console.log('del 1', data);
+	return {
+		type: DELETE_POST,
+		payload: data,
+	};
+};
+
+export const deletePostSuccess = (post) => {
+	return {
+		type: DELETE_POST_SUCCESS,
+		payload: post,
+	};
+};
+
+export const deletePostFail = (error) => {
+	return {
+		type: DELETE_POST_FAIL,
 		payload: error,
 	};
 };

@@ -43,3 +43,14 @@ export async function post(url, data) {
 		return response.data;
 	});
 }
+
+export async function del(url, params) {
+	const { id } = params;
+	let urlLink = __URL__ + url + '/' + id;
+	console.log('DEL', urlLink, id);
+
+	return await axios.delete(urlLink).then((response) => {
+		console.log('res del!', response);
+		return response.data;
+	});
+}
