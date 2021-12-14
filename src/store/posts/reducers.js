@@ -59,7 +59,6 @@ const PostReducer = (state = initialState, action) => {
 			};
 			break;
 		case ADD_POST:
-			console.log('add_post', action.payload);
 			state = {
 				...state,
 				posts: [action.payload, ...state.posts],
@@ -67,11 +66,14 @@ const PostReducer = (state = initialState, action) => {
 			};
 			break;
 		case PATCH_POST:
-			console.log('patch reducer', state, 'action', action);
+			Object.assign(
+				state.posts.find((b) => b.id === action.payload.id),
+				action.payload.body
+			);
 			state = {
 				...state,
-				post: action.payload.body,
-				loadingPosts: true,
+				posts: state.posts,
+				loadingPosts: false,
 			};
 			break;
 		case ADD_POST_SUCCESS:

@@ -35,10 +35,7 @@ export async function getPosts(url, config) {
 }
 
 export async function post(url, data) {
-	console.log('apiiiiiiiiiiiiii post', data);
-
 	let urlLink = __URL__ + url;
-
 	return await axios.post(urlLink, JSON.stringify(data)).then((response) => {
 		console.log('res !', response);
 		return response.data;
@@ -46,10 +43,8 @@ export async function post(url, data) {
 }
 
 export async function patch(url, data) {
-	console.log('apiiiiiiiiiiiiii', data);
 	const { id, body } = data;
 	let urlLink = __URL__ + url + '/' + id;
-	console.log('patch api', urlLink);
 
 	return await axios.put(urlLink, JSON.stringify(body)).then((response) => {
 		console.log('res !', response);
@@ -60,8 +55,6 @@ export async function patch(url, data) {
 export async function del(url, params) {
 	const { id } = params;
 	let urlLink = __URL__ + url + '/' + id;
-	console.log('DEL', urlLink, id);
-
 	return await axios.delete(urlLink).then((response) => {
 		console.log('res del!', response);
 		return response.data;

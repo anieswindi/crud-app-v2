@@ -43,7 +43,10 @@ export default function Posts(props) {
 		}
 	};
 
-	const handleCloseModalAdd = () => setShowModalAdd(false);
+	const handleCloseModalAdd = () => {
+		setDataForm({});
+		setShowModalAdd(false);
+	};
 
 	const handleAcceptForm = (data, id) => {
 		if (id) {
@@ -51,7 +54,6 @@ export default function Posts(props) {
 				id: id,
 				body: data,
 			};
-			console.log(dataUpdate);
 			dispatch(patchPost(dataUpdate));
 		} else {
 			let dataFinal = {
@@ -66,11 +68,8 @@ export default function Posts(props) {
 	};
 
 	const handleDelete = (id) => {
-		console.log(id);
 		dispatch(deletePost(id));
 	};
-
-	console.log('posts !', posts);
 
 	return (
 		<Container>
@@ -144,119 +143,6 @@ export default function Posts(props) {
 									</Row>
 								);
 							})}
-						{/* {posts.id && posts
-							? posts.map((item) => {
-									return (
-										<Row className="posts">
-											<Col lg={8} md={10} sm={12}>
-												<Card>
-													<div className="icon">
-														<BsFillTrashFill
-															onClick={() =>
-																handleDelete(
-																	item.id
-																		? item.id
-																		: item.userId
-																)
-															}
-														/>
-														<BsPencilFill
-															onClick={() =>
-																handleShowModalUpdate(
-																	item.id
-																		? item.id
-																		: item.userId
-																)
-															}
-														/>
-													</div>
-													<Link
-														to={`/${
-															item.id
-																? item.id
-																: item.userId
-														}`}
-													>
-														<Card.Body>
-															<Card.Title>
-																{item.title}
-															</Card.Title>
-
-															<Card.Text>
-																{item.body}
-															</Card.Text>
-														</Card.Body>
-													</Link>
-												</Card>
-											</Col>
-										</Row>
-									);
-							  })
-							: 
-							(
-							  	<div>
-							  		<Row className="posts">
-							  			<Col lg={8} md={10} sm={12}>
-							  				<Card>
-							  					<div className="icon">
-							  						<BsFillTrashFill />
-							  						<BsPencilFill />
-							  					</div>
-
-							  					<Card.Body>
-							  						<Link to={`/${post.id}`}>
-							  							<Card.Title>
-							  								{post.title}
-							  							</Card.Title>
-							  						</Link>
-
-							  						<Card.Text>
-							  							{post.body}
-							  						</Card.Text>
-							  					</Card.Body>
-							  				</Card>
-							  			</Col>
-							  		</Row>
-							  	</div>
-							  )
-
-							  posts.map((item) => {
-									return (
-										<Row className="posts">
-											<Col lg={8} md={10} sm={12}>
-												<Card>
-													<div className="icon">
-														<BsFillTrashFill
-															onClick={() =>
-																handleDelete(
-																	item.id
-																)
-															}
-														/>
-														<BsPencilFill
-															onClick={() =>
-																handleShowModalUpdate(
-																	item.id
-																)
-															}
-														/>
-													</div>
-													<Link to={`/${item.id}`}>
-														<Card.Body>
-															<Card.Title>
-																{item.title}
-															</Card.Title>
-
-															<Card.Text>
-																{item.body}
-															</Card.Text>
-														</Card.Body>
-													</Link>
-												</Card>
-											</Col>
-										</Row>
-									);
-							  })} */}
 					</div>
 				</>
 			)}

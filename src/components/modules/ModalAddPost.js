@@ -12,7 +12,7 @@ class ModalAddPost extends Component {
 		};
 	}
 
-	componentDidUpdate(prevState, prevProps) {
+	async componentDidUpdate(prevState, prevProps) {
 		if (prevProps.data !== this.props.data) {
 			this.setState({
 				data: this.props.data,
@@ -25,7 +25,7 @@ class ModalAddPost extends Component {
 	}
 
 	assignProps() {
-		let data = { ...(this.props.data || {}) };
+		const data = { ...(this.props.data || {}) };
 		this.setState({
 			data,
 		});
@@ -46,26 +46,15 @@ class ModalAddPost extends Component {
 			state: { data, dataForm },
 		} = this;
 		if (type == 'update') {
-			this.setState(
-				(prevState) => ({
-					data: {
-						...prevState.data,
-						body:
-							prevState.data.body !== dataForm.body
-								? dataForm.body
-								: prevState.data.body,
-						title:
-							prevState.data.title !== dataForm.title
-								? dataForm.title
-								: prevState.data.title,
-					},
-				}),
-				() => {
-					console.log(this.state.data);
-				}
-			);
+			this.setState((state) => ({
+				dataForm: {
+					...state.dataForm,
+					body: dataForm.body,
+					title: dataForm.title,
+				},
+			}));
 
-			this.props.onAccept(data, data.id);
+			this.props.onAccept(dataForm, data.id);
 		} else {
 			// console.log(this.state.dataForm)
 			this.props.onAccept(this.state.dataForm);

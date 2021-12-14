@@ -63,11 +63,10 @@ function* onGetPostDetails({ payload: id }) {
 }
 
 function* onPatchPost() {
-	console.log('oy');
 	try {
 		const response = yield call(patchPost);
 		console.log('onPatchPost', response);
-		yield put(patchPostSuccess(response));
+		// yield put(patchPostSuccess(response));
 	} catch (error) {
 		yield put(patchPostFail(error.response));
 	}
@@ -76,7 +75,6 @@ function* onPatchPost() {
 function* onDeletePost() {
 	try {
 		const response = yield call(deletePost);
-		console.log('del 3', response);
 		yield put(deletePostSuccess(response));
 	} catch (error) {
 		yield put(deletePostFail(error.response));
