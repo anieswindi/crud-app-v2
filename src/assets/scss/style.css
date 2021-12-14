@@ -1,0 +1,48 @@
+a {
+	text-decoration: none !important;
+}
+.home {
+	margin-top: 2rem;
+}
+
+.home .posts {
+	display: flex;
+	justify-content: center;
+}
+
+.posts {
+	margin-top: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+.posts > img {
+	width: 100%;
+	height: auto;
+	margin-bottom: 3rem;
+}
+.posts > h1 {
+	margin-bottom: 1rem;
+}
+
+.loader {
+	position: absolute;
+	left: 40%;
+	top: 50%;
+}
+
+.card {
+	margin-bottom: 1rem;
+}
+
+.card .card-title {
+	font-size: 1.5em;
+	color: black;
+}
+.card .card-text {
+	font-size: 1em;
+	color: black;
+}
+.card:hover {
+	background: rgb(228, 228, 228);
+}
