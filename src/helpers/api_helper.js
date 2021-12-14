@@ -35,10 +35,23 @@ export async function getPosts(url, config) {
 }
 
 export async function post(url, data) {
+	console.log('apiiiiiiiiiiiiii post', data);
+
 	let urlLink = __URL__ + url;
-	console.log('POST url', url, 'data post!', data, ' url', urlLink);
 
 	return await axios.post(urlLink, JSON.stringify(data)).then((response) => {
+		console.log('res !', response);
+		return response.data;
+	});
+}
+
+export async function patch(url, data) {
+	console.log('apiiiiiiiiiiiiii', data);
+	const { id, body } = data;
+	let urlLink = __URL__ + url + '/' + id;
+	console.log('patch api', urlLink);
+
+	return await axios.put(urlLink, JSON.stringify(body)).then((response) => {
 		console.log('res !', response);
 		return response.data;
 	});

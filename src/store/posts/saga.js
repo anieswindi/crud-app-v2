@@ -4,6 +4,7 @@ import {
 	GET_POSTS,
 	GET_POST_DETAILS,
 	ADD_POST,
+	PATCH_POST,
 	DELETE_POST,
 } from './actionTypes';
 
@@ -14,6 +15,8 @@ import {
 	getPostDetailsFail,
 	addPostSuccess,
 	addPostFail,
+	patchPostSuccess,
+	patchPostFail,
 	deletePostSuccess,
 	deletePostFail,
 } from './actions';
@@ -22,6 +25,7 @@ import {
 	getPosts,
 	getPostDetails,
 	addPost,
+	patchPost,
 	deletePost,
 } from '../../helpers/backend_helper';
 
@@ -36,8 +40,14 @@ function* onGetPosts() {
 
 function* onAddPost() {
 	try {
+		// yield put({ type: SET_LOADING });
+
 		const response = yield call(addPost);
-		yield put(addPostSuccess(response));
+
+		// yield put({ type: CREATE_TODO, payload: newTodo });
+		// const response = yield call(addPost);
+		// console.log('onAddPost', response);
+		// yield put(addPostSuccess(response));
 	} catch (error) {
 		yield put(addPostFail(error.response));
 	}
@@ -49,6 +59,17 @@ function* onGetPostDetails({ payload: id }) {
 		yield put(getPostDetailsSuccess(response));
 	} catch (error) {
 		yield put(getPostDetailsFail(error.response));
+	}
+}
+
+function* onPatchPost() {
+	console.log('oy');
+	try {
+		const response = yield call(patchPost);
+		console.log('onPatchPost', response);
+		yield put(patchPostSuccess(response));
+	} catch (error) {
+		yield put(patchPostFail(error.response));
 	}
 }
 
@@ -66,6 +87,7 @@ function* CartSaga() {
 	yield takeEvery(GET_POSTS, onGetPosts);
 	yield takeEvery(GET_POST_DETAILS, onGetPostDetails);
 	yield takeLatest(ADD_POST, onAddPost);
+	yield takeEvery(PATCH_POST, onPatchPost);
 	yield takeEvery(DELETE_POST, onDeletePost);
 }
 

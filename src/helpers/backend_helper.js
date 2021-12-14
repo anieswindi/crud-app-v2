@@ -13,7 +13,5 @@ export const getPostDetails = (id) =>
 	});
 
 export const addPost = (data) => post(url.ADD_POST, data);
-// export const patchPost = (data) => patch(url.PATCH_POST, data);
+export const patchPost = (data) => patch(url.PATCH_POST, data);
 export const deletePost = (data) => del(url.DELETE_POST, data);
-
-

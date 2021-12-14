@@ -8,6 +8,9 @@ import {
 	ADD_POST,
 	ADD_POST_SUCCESS,
 	ADD_POST_FAIL,
+	PATCH_POST,
+	PATCH_POST_SUCCESS,
+	PATCH_POST_FAIL,
 	DELETE_POST,
 	DELETE_POST_FAIL,
 	DELETE_POST_SUCCESS,
@@ -75,8 +78,29 @@ export const addPostFail = (error) => {
 	};
 };
 
+export const patchPost = (data) => {
+	console.log('patch 1', data);
+	return {
+		type: PATCH_POST,
+		payload: data,
+	};
+};
+
+export const patchPostSuccess = (post) => {
+	return {
+		type: PATCH_POST_SUCCESS,
+		payload: post,
+	};
+};
+
+export const patchPostFail = (error) => {
+	return {
+		type: PATCH_POST_FAIL,
+		payload: error,
+	};
+};
+
 export const deletePost = (data) => {
-	console.log('del 1', data);
 	return {
 		type: DELETE_POST,
 		payload: data,

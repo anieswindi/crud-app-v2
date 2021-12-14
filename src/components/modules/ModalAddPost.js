@@ -46,13 +46,26 @@ class ModalAddPost extends Component {
 			state: { data, dataForm },
 		} = this;
 		if (type == 'update') {
-			// console.log(data)
-			Object.keys(dataForm).forEach((key) => {
-				if (!dataForm[key]) {
-					delete dataForm[key];
+			this.setState(
+				(prevState) => ({
+					data: {
+						...prevState.data,
+						body:
+							prevState.data.body !== dataForm.body
+								? dataForm.body
+								: prevState.data.body,
+						title:
+							prevState.data.title !== dataForm.title
+								? dataForm.title
+								: prevState.data.title,
+					},
+				}),
+				() => {
+					console.log(this.state.data);
 				}
-			});
-			this.props.onAccept(this.state.dataForm, data.id);
+			);
+
+			this.props.onAccept(data, data.id);
 		} else {
 			// console.log(this.state.dataForm)
 			this.props.onAccept(this.state.dataForm);
